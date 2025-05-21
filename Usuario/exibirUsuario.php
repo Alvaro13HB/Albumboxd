@@ -1,7 +1,7 @@
 <?php
     require_once "../init.php";
     $PDO = db_connect();
-    $sql = "SELECT idUsuario, nome, email, cpf, dtNasc FROM Usuario ORDER BY nome ASC";
+    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario ORDER BY nickUsuario ASC";
     $stmt = $PDO->prepare($sql);
     $stmt->execute();
 ?>
@@ -19,7 +19,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(function(){
-                $("#menu").load("../navbar.html");
+                $("#menu").load("../navbar/navbar.html");
             });
         });
     </script>
@@ -35,9 +35,9 @@
             <thead>
                 <tr>
                     <th>Código</th>
+                    <th>Nickname</th>
                     <th>Nome</th>
                     <th>Email</th>
-                    <th>CPF</th>
                     <th>Data de Nascimento</th>
                     <th style="text-align: center" colspan="2">Ações</th>
                 </tr>
@@ -46,10 +46,10 @@
                 <?php while($user = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                     <tr>
                         <td><?php echo $user['idUsuario']; ?></td>
-                        <td><?php echo $user['nome']; ?></td>
-                        <td><?php echo $user['email']; ?></td>
-                        <td><?php echo $user['cpf']; ?></td>
-                        <td><?php echo converteData($user["dtNasc"]); ?></td>
+                        <td><?php echo $user['nickUsuario']; ?></td>
+                        <td><?php echo $user['nmUsuario']; ?></td>
+                        <td><?php echo $user['emailUsuario']; ?></td>
+                        <td><?php echo converteData($user["dtnascUsuario"]); ?></td>
                         <td>
                             <a href="formEditUsuario.php?idUsuario=<?php echo $user['idUsuario']; ?>" class="btn btn-primary">Editar</a>
                         </td>

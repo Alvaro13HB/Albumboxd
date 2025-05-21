@@ -2,7 +2,7 @@
     require_once "../init.php";
     $id = isset($_GET['idUsuario']) ? $_GET['idUsuario'] : null;
     $PDO = db_connect();
-    $sql = "SELECT idUsuario, nome, email, cpf, dtNasc, senha FROM Usuario WHERE idUsuario = :id";
+    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario WHERE idUsuario = :id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':id', $id);
     $stmt->execute();
@@ -25,7 +25,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(function(){
-                $("#menu").load("../navbar.html");
+                $("#menu").load("../navbar/navbar.html");
             });
         });
     </script>
@@ -40,39 +40,27 @@
         <form action="editUsuario.php" method="POST">
             <input type="hidden" name="idUsuario" value="<?php echo $id; ?>">
             <div class="form-group">
+                <label for="nick">Nickname:</label>
+                <input type="text" class="form-control" id="nick" name="nick" value="<?php echo $user["nickUsuario"]; ?>" required>
+            </div>
+            <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $user["nome"]; ?>" required>
+                <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $user["nmUsuario"]; ?>" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?php echo $user["email"]; ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="cpf">CPF:</label>
-                <input type="text" maxlength="14" class="form-control" id="cpf" name="cpf" onkeypress="mascara_cpf('###.###.###-##', this)" value="<?php echo $user["cpf"]; ?>" required>
+                <input type="email" class="form-control" id="email" name="email" value="<?php echo $user["emailUsuario"]; ?>" required>
             </div>
             <div class="form-group">
                 <label for="dtNasc">Data de Nascimento:</label>
-                <input type="date" class="form-control" id="dtNasc" name="dtNasc" value="<?php echo $user["dtNasc"]; ?>" required>
+                <input type="date" class="form-control" id="dtNasc" name="dtNasc" value="<?php echo $user["dtnascUsuario"]; ?>" required>
             </div>
             <div class="form-group">
                 <label for="senha">Senha:</label>
-                <input type="password" class="form-control" id="senha" name="senha" value="<?php echo $user["senha"]; ?>" required>
+                <input type="password" class="form-control" id="senha" name="senha" required>
             </div>
             <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
     </div>
 </body>
-<script>
-    function mascara_cpf(mascara, documento){
-        let i = documento.value.length;
-        let saida = "#";
-        let texto = mascara.substring(i);
-        while(texto.substring(0, 1) != saida && texto.length){
-            documento.value += texto.substring(0, 1);
-            i++;
-            texto = mascara.substring(i);
-        }
-    }
-</script>
 </html>

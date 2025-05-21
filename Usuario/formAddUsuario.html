@@ -11,7 +11,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $(function(){
-                $("#menu").load("../navbar.html");
+                $("#menu").load("../navbar/navbar.html");
             });
         });
     </script>
@@ -25,16 +25,16 @@
         </div>
         <form action="addUsuario.php" method="POST">
             <div class="form-group">
+                <label for="nick">Nickname:</label>
+                <input type="text" class="form-control" id="nick" name="nick" required>
+            </div>
+            <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" required>
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="cpf">CPF:</label>
-                <input type="text" maxlength="14" class="form-control" id="cpf" name="cpf" onkeypress="mascara_cpf('###.###.###-##', this)" required>
             </div>
             <div class="form-group">
                 <label for="dtNasc">Data de Nascimento:</label>
@@ -48,16 +48,4 @@
         </form>
     </div>
 </body>
-<script>
-    function mascara_cpf(mascara, documento){
-        let i = documento.value.length;
-        let saida = "#";
-        let texto = mascara.substring(i);
-        while(texto.substring(0, 1) != saida && texto.length){
-            documento.value += texto.substring(0, 1);
-            i++;
-            texto = mascara.substring(i);
-        }
-    }
-</script>
 </html>
