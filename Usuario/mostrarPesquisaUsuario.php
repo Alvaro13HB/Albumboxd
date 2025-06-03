@@ -1,8 +1,17 @@
 <?php
     require_once "../init.php";
+
+    $nome = isset($_POST['nome']) ? $_POST['nome'] : null;
+    if(empty($nome)){
+        header("Location: exibirUsuario.php");
+    }
+    $pesquisa = '%' . $nome . '%';
+    
     $PDO = db_connect();
-    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario ORDER BY nickUsuario ASC";
+    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario 
+    WHERE upper(nmUsuario) LIKE :pesquisa ORDER BY nmUsuario ASC";
     $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':pesquisa', $pesquisa, PDO::PARAM_STR);
     $stmt->execute();
 ?>
 
@@ -50,7 +59,7 @@
     <div id="menu"></div>
     <div class="container">
         <div class="page-header text-center">
-            <h4 class="mb-0">Usuários</h4>
+            <h4 class="mb-0">Usuários Pesquisados</h4>
         </div>
 
         <div class="table-responsive">

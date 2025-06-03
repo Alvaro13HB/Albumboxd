@@ -1,7 +1,7 @@
 <?php
     require_once "../init.php";
     $PDO = db_connect();
-    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario ORDER BY nickUsuario ASC";
+    $sql = "SELECT idAutor, nmAutor FROM Autor ORDER BY nmAutor ASC";
     $stmt = $PDO->prepare($sql);
     $stmt->execute();
 ?>
@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Usuários</title>
+    <title>Cadastro de Autores</title>
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="../bootstrap/js/jquery.min.js"></script>
     <script src="../bootstrap/js/popper.min.js"></script>
@@ -50,7 +50,7 @@
     <div id="menu"></div>
     <div class="container">
         <div class="page-header text-center">
-            <h4 class="mb-0">Usuários</h4>
+            <h4 class="mb-0">Autores</h4>
         </div>
 
         <div class="table-responsive">
@@ -58,29 +58,23 @@
                 <thead class="thead-light">
                     <tr>
                         <th>Código</th>
-                        <th>Nickname</th>
                         <th>Nome</th>
-                        <th>Email</th>
-                        <th>Data de Nascimento</th>
                         <th class="text-center" colspan="2">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($user = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                    <?php while($autor = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                         <tr>
-                            <td><?php echo $user['idUsuario']; ?></td>
-                            <td><?php echo $user['nickUsuario']; ?></td>
-                            <td><?php echo $user['nmUsuario']; ?></td>
-                            <td><?php echo $user['emailUsuario']; ?></td>
-                            <td><?php echo converteData($user["dtnascUsuario"]); ?></td>
+                            <td><?php echo $autor['idAutor']; ?></td>
+                            <td><?php echo $autor['nmAutor']; ?></td>
                             <td class="text-center">
-                                <a href="formEditUsuario.php?idUsuario=<?php echo $user['idUsuario']; ?>" 
+                                <a href="formEditAutor.php?idAutor=<?php echo $autor['idAutor']; ?>" 
                                    class="btn btn-sm btn-outline-primary">
                                    Editar
                                 </a>
                             </td>
                             <td class="text-center">
-                                <a href="deleteUsuario.php?idUsuario=<?php echo $user['idUsuario']; ?>" 
+                                <a href="deleteAutor.php?idAutor=<?php echo $autor['idAutor']; ?>" 
                                    onclick="return confirm('Tem certeza que deseja remover?')" 
                                    class="btn btn-sm btn-outline-danger">
                                    Excluir

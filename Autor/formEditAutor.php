@@ -1,14 +1,14 @@
 <?php
     require_once "../init.php";
-    $id = isset($_GET['idUsuario']) ? $_GET['idUsuario'] : null;
+    $id = isset($_GET['idAutor']) ? $_GET['idAutor'] : null;
     $PDO = db_connect();
-    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario WHERE idUsuario = :id";
+    $sql = "SELECT idAutor, nmAutor FROM Autor WHERE idAutor = :id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':id', $id);
     $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    if(!is_array($user)){
-        header("Location: exibirUsuario.php");
+    $autor = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(!is_array($autor)){
+        header("Location: exibirAutor.php");
     }
 ?>
 
@@ -52,26 +52,10 @@
 <div id="menu"></div>
 <div class="form-container">
     <h3 class="text-center">Edite seus dados</h3>
-    <form action="editUsuario.php" method="POST">
-        <div class="form-group mt-3">
-            <label for="nick">Nickname</label>
-            <input type="text" class="form-control" id="nick" name="nick" placeholder="Digite seu nickname" value=<?php echo $user["nickUsuario"] ?> required>
-        </div>
+    <form action="editAutor.php" method="POST">
         <div class="form-group mt-3">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" value=<?php echo $user["nmUsuario"] ?> required>
-        </div>
-        <div class="form-group mt-3">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu Email" value=<?php echo $user["emailUsuario"] ?> required>
-        </div>
-        <div class="form-group mt-3">
-            <label for="dtNasc">Data de nascimento</label>
-            <input type="date" class="form-control" id="dtNasc" name="dtNasc" value=<?php echo $user["dtnascUsuario"] ?> required>
-        </div>
-        <div class="form-group mt-3">
-            <label for="senha">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" value=<?php echo $autor["nmAutor"] ?> required>
         </div>
         <button type="submit" class="btn btn-primary w-100 mt-4">Atualizar</button>
     </form>

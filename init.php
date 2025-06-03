@@ -1,8 +1,8 @@
 <?php
     define("DB_HOST", "localhost");
-    define("DB_USER", "alunos");
-    define("DB_PASS", "cefetmg");
-    define("DB_NAME", "db_Albuns");
+    define("DB_USER", "alvaros");
+    define("DB_PASS", "1406");
+    define("DB_NAME", "db_albuns");
 
     date_default_timezone_set('America/Sao_Paulo');
 
