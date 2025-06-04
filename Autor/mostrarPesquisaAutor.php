@@ -22,9 +22,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Autors</title>
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
-    <script src="../bootstrap/js/jquery.min.js"></script>
     <script src="../bootstrap/js/popper.min.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>
+    <script src="../bootstrap/js/jquery.min.js"></script>
     <style>
         body {
             background-color: #f8f9fa;

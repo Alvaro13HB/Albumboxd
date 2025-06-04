@@ -1,8 +1,17 @@
 <?php
     require_once "../init.php";
+
+    $nome = isset($_POST['nome']) ? $_POST['nome'] : null;
+    if(empty($nome)){
+        header("Location: exibirAlbum.php");
+    }
+    $pesquisa = '%' . $nome . '%';
+    
     $PDO = db_connect();
-    $sql = "SELECT idAutor, nmAutor FROM Autor ORDER BY nmAutor ASC";
+    $sql = "SELECT A.idAlbum, A.nmAlbum, A.dtAlbum, A.qtdfaixasAlbum, T.nmAutor FROM Album A INNER JOIN Autor T ON A.idAutor = T.idAutor
+    WHERE upper(nmAlbum) LIKE :pesquisa ORDER BY nmAlbum ASC";
     $stmt = $PDO->prepare($sql);
+    $stmt->bindParam(':pesquisa', $pesquisa, PDO::PARAM_STR);
     $stmt->execute();
 ?>
 
@@ -11,7 +20,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Autores</title>
+    <title>Cadastro de Álbuns</title>
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="../bootstrap/js/popper.min.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>
@@ -50,7 +59,7 @@
     <div id="menu"></div>
     <div class="container">
         <div class="page-header text-center">
-            <h4 class="mb-0">Autores</h4>
+            <h4 class="mb-0">Álbuns Pesquisados</h4>
         </div>
 
         <div class="table-responsive">
@@ -59,22 +68,28 @@
                     <tr>
                         <th>Código</th>
                         <th>Nome</th>
+                        <th>Data de Lançamento</th>
+                        <th>Quantidade de Faixas</th>
+                        <th>Autor</th>
                         <th class="text-center" colspan="2">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($autor = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                    <?php while($Album = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                         <tr>
-                            <td><?php echo $autor['idAutor']; ?></td>
-                            <td><?php echo $autor['nmAutor']; ?></td>
+                            <td><?php echo $album['idAlbum']; ?></td>
+                            <td><?php echo $album['nmAlbum']; ?></td>
+                            <td><?php echo $album['dtAlbum']; ?></td>
+                            <td><?php echo $album['qtdfaixasAlbum']; ?></td>
+                            <td><?php echo $album['nmAutor']; ?></td>
                             <td class="text-center">
-                                <a href="formEditAutor.php?idAutor=<?php echo $autor['idAutor']; ?>" 
+                                <a href="formEditAlbum.php?idAlbum=<?php echo $Album['idAlbum']; ?>" 
                                    class="btn btn-sm btn-outline-primary">
                                    Editar
                                 </a>
                             </td>
                             <td class="text-center">
-                                <a href="deleteAutor.php?idAutor=<?php echo $autor['idAutor']; ?>" 
+                                <a href="deleteAlbum.php?idAlbum=<?php echo $Album['idAlbum']; ?>" 
                                    onclick="return confirm('Tem certeza que deseja remover?')" 
                                    class="btn btn-sm btn-outline-danger">
                                    Excluir
