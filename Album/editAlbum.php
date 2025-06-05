@@ -8,7 +8,7 @@
     $idAutor = $_POST['autor'];
 
     $PDO = db_connect();
-    $sql = "UPDATE Album SET nmAlbum = :nome, dtAlbum = :dtAlbum, qtdfaixasAlbum = :qtdfaixas, idAutor = :idAutor  WHERE idAlbum = :id";
+    $sql = "UPDATE album SET nmAlbum = :nome, dtAlbum = :dtAlbum, qtdfaixasAlbum = :qtdfaixas, idAutor = :idAutor  WHERE idAlbum = :id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':dtAlbum', $dtAlbum);

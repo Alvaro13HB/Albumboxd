@@ -1,7 +1,7 @@
 <?php
     require_once "../init.php";
     $PDO = db_connect();
-    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario ORDER BY nickUsuario ASC";
+    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM usuario ORDER BY nickUsuario ASC";
     $stmt = $PDO->prepare($sql);
     $stmt->execute();
 ?>

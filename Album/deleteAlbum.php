@@ -8,7 +8,7 @@
     }
 
     $PDO = db_connect();
-    $sql = "DELETE FROM Album WHERE idAlbum = :id";
+    $sql = "DELETE FROM album WHERE idAlbum = :id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':id', $id);
     if($stmt->execute()){

@@ -1,7 +1,7 @@
 <?php
     require_once "../init.php";
     $PDO = db_connect();
-    $sql = "SELECT A.idAlbum, A.nmAlbum, A.dtAlbum, A.qtdfaixasAlbum, T.nmAutor FROM Album A INNER JOIN Autor T ON A.idAutor = T.idAutor ORDER BY nmAlbum ASC";
+    $sql = "SELECT A.idAlbum, A.nmAlbum, A.dtAlbum, A.qtdfaixasAlbum, T.nmAutor FROM album A INNER JOIN autor T ON A.idAutor = T.idAutor ORDER BY nmAlbum ASC";
     $stmt = $PDO->prepare($sql);
     $stmt->execute();
 ?>
@@ -70,7 +70,7 @@
                         <tr>
                             <td><?php echo $album['idAlbum']; ?></td>
                             <td><?php echo $album['nmAlbum']; ?></td>
-                            <td><?php echo $album['dtAlbum']; ?></td>
+                            <td><?php echo converteData($album['dtAlbum']); ?></td>
                             <td><?php echo $album['qtdfaixasAlbum']; ?></td>
                             <td><?php echo $album['nmAutor']; ?></td>
                             <td class="text-center">

@@ -9,7 +9,7 @@
     $senha = $_POST['senha'];
 
     $PDO = db_connect();
-    $sql = "UPDATE Usuario SET nickUsuario = :nick, nmUsuario = :nome, emailUsuario = :email, dtnascUsuario = :dtNasc, senhaUsuario = :senha WHERE idUsuario = :id";
+    $sql = "UPDATE usuario SET nickUsuario = :nick, nmUsuario = :nome, emailUsuario = :email, dtnascUsuario = :dtNasc, senhaUsuario = :senha WHERE idUsuario = :id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':nick', $nick);
     $stmt->bindParam(':nome', $nome);

@@ -2,9 +2,12 @@
     require_once "../init.php";
 
     $PDO = db_connect();
-    $sql = "SELECT idAutor, nmAutor FROM autor ORDER BY nmAutor ASC";
-    $stmt = $PDO->prepare($sql);
-    $stmt->execute()
+    $sqlA = "SELECT idAlbum, nmAlbum FROM album ORDER BY nmAlbum ASC";
+    $sqlU = "SELECT idUsuario, nmUsuario FROM usuario ORDER BY nmUsuario ASC";
+    $stmtA = $PDO->prepare($sqlA);
+    $stmtA->execute();
+    $stmtU = $PDO->prepare($sqlU);
+    $stmtU->execute();
 ?>
 
 <!DOCTYPE html>
@@ -46,26 +49,27 @@
 <body>
 <div id="menu"></div>
 <div class="form-container">
-    <h3 class="text-center">Cadastrar Álbum</h3>
-    <form action="addAlbum.php" method="POST">
+    <h3 class="text-center">Cadastrar Nota</h3>
+    <form action="addNota.php" method="POST">
         <div class="form-group mt-3">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do Album" required>
+            <label for="nota">Nota</label>
+            <input type="number" class="form-control" id="nota" name="nota" placeholder="Digite a nota" required>
         </div>
         <div class="form-group mt-3">
-            <label for="data">Data de Lançamento</label>
-            <input type="date" class="form-control" id="data" name="data" placeholder="Digite a data do Album" required>
+            <label for="usuario">Usuário</label>
+            <select name="usuario" id="usuario" class="form-control form-select" required>
+                <option value="" disabled selected>Selecione o Usuário</option>
+                <?php while($usuario = $stmtU->fetch(PDO::FETCH_ASSOC)): ?>
+                    <option value=<?php echo $usuario['idUsuario']; ?> ><?php echo $usuario['nmUsuario']; ?></option>
+                <?php endwhile; ?>
+            </select>
         </div>
         <div class="form-group mt-3">
-            <label for="qtdfaixas">Quantidade de Faixas</label>
-            <input type="number" class="form-control" id="qtdfaixas" name="qtdfaixas" placeholder="Digite a quantidade de faixas" required>
-        </div>
-        <div class="form-group mt-3">
-            <label for="autor">Autor</label>
-            <select name="autor" id="autor" class="form-control form-select" required>
-                <option value="" disabled selected>Selecione o Autor</option>
-                <?php while($autor = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-                    <option value=<?php echo $autor['idAutor']; ?> ><?php echo $autor['nmAutor']; ?></option>
+            <label for="album">Álbum</label>
+            <select name="album" id="album" class="form-control form-select" required>
+                <option value="" disabled selected>Selecione o Álbum</option>
+                <?php while($album = $stmtA->fetch(PDO::FETCH_ASSOC)): ?>
+                    <option value=<?php echo $album['idAlbum']; ?> ><?php echo $album['nmAlbum']; ?></option>
                 <?php endwhile; ?>
             </select>
         </div>

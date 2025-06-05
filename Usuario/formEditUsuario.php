@@ -2,7 +2,7 @@
     require_once "../init.php";
     $id = isset($_GET['idUsuario']) ? $_GET['idUsuario'] : null;
     $PDO = db_connect();
-    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario WHERE idUsuario = :id";
+    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM usuario WHERE idUsuario = :id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':id', $id);
     $stmt->execute();

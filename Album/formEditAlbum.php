@@ -1,14 +1,20 @@
 <?php
     require_once "../init.php";
-    $id = isset($_GET['idAutor']) ? $_GET['idAutor'] : null;
+    $id = isset($_GET['idAlbum']) ? $_GET['idAlbum'] : null;
     $PDO = db_connect();
-    $sql = "SELECT idAutor, nmAutor FROM Autor WHERE idAutor = :id";
+
+    $sql = "SELECT idAlbum, nmAlbum, dtAlbum, qtdfaixasAlbum FROM album ORDER BY nmAlbum ASC";
     $stmt = $PDO->prepare($sql);
-    $stmt->bindParam(':id', $id);
     $stmt->execute();
-    $autor = $stmt->fetch(PDO::FETCH_ASSOC);
-    if(!is_array($autor)){
-        header("Location: exibirAutor.php");
+
+    $sqlAutor = "SELECT * FROM autor ORDER BY nmAutor ASC";
+    $stmtAutor = $PDO->prepare($sqlAutor);
+    $stmtAutor->execute();
+
+    $album = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if(!is_array($album)){
+        header("Location: exibirAlbum.php");
     }
 ?>
 
@@ -17,7 +23,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Usuário</title>
+    <title>Cadastro de Álbuns</title>
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="../bootstrap/js/popper.min.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>
@@ -51,11 +57,29 @@
 <body>
 <div id="menu"></div>
 <div class="form-container">
-    <h3 class="text-center">Edite seus dados</h3>
-    <form action="editAutor.php" method="POST">
+    <h3 class="text-center">Editar Álbum</h3>
+    <form action="editAlbum.php" method="POST">
+        <input type="hidden" name="idAlbum" value="<?php echo $album['idAlbum']; ?>">
         <div class="form-group mt-3">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" value=<?php echo $autor["nmAutor"] ?> required>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do Album" value=<?php echo $album["nmAlbum"] ?> required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="data">Data de Lançamento</label>
+            <input type="date" class="form-control" id="data" name="data" placeholder="Digite a data do Album" value=<?php echo $album["dtAlbum"] ?> required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="qtdfaixas">Quantidade de Faixas</label>
+            <input type="number" class="form-control" id="qtdfaixas" name="qtdfaixas" placeholder="Digite a quantidade de faixas" value=<?php echo $album["qtdfaixasAlbum"] ?> required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="autor">Autor</label>
+            <select name="autor" id="autor" class="form-control form-select" required>
+                <option value="" disabled selected>Selecione o Autor</option>
+                <?php while($autor = $stmtAutor->fetch(PDO::FETCH_ASSOC)): ?>
+                    <option value=<?php echo $autor['idAutor']; ?> ><?php echo $autor['nmAutor']; ?></option>
+                <?php endwhile; ?>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary w-100 mt-4">Atualizar</button>
     </form>

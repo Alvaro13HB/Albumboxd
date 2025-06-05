@@ -1,7 +1,7 @@
 <?php
     require_once "../init.php";
     $PDO = db_connect();
-    $sql = "SELECT idAutor, nmAutor FROM Autor ORDER BY nmAutor ASC";
+    $sql = "SELECT idAutor, nmAutor FROM autor ORDER BY nmAutor ASC";
     $stmt = $PDO->prepare($sql);
     $stmt->execute();
 ?>

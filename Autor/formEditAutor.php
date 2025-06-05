@@ -2,7 +2,7 @@
     require_once "../init.php";
     $id = isset($_GET['idAutor']) ? $_GET['idAutor'] : null;
     $PDO = db_connect();
-    $sql = "SELECT idAutor, nmAutor FROM Autor WHERE idAutor = :id";
+    $sql = "SELECT idAutor, nmAutor FROM autor WHERE idAutor = :id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':id', $id);
     $stmt->execute();
@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Usuário</title>
+    <title>Editar Autor</title>
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="../bootstrap/js/popper.min.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>

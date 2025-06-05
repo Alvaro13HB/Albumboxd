@@ -8,7 +8,7 @@
     }
 
     $PDO = db_connect();
-    $sql = "DELETE FROM Usuario WHERE idUsuario = :id";
+    $sql = "DELETE FROM usuario WHERE idUsuario = :id";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':id', $id);
     if($stmt->execute()){

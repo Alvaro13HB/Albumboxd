@@ -7,7 +7,7 @@
     $idAutor = $_POST['autor'];
        
     $PDO = db_connect();
-    $sql = "INSERT INTO Album (nmAlbum, dtAlbum, qtdfaixasAlbum, idAutor) VALUES (:nome, :dtAlbum, :qtdfaixas, :idAutor)";
+    $sql = "INSERT INTO album (nmAlbum, dtAlbum, qtdfaixasAlbum, idAutor) VALUES (:nome, :dtAlbum, :qtdfaixas, :idAutor)";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':dtAlbum', $dtAlbum);

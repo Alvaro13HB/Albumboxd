@@ -8,7 +8,7 @@
     $senha = $_POST['senha'];
        
     $PDO = db_connect();
-    $sql = "INSERT INTO Usuario (nickUsuario, nmUsuario, emailUsuario, dtnascUsuario, senhaUsuario) VALUES (:nick, :nome, :email, :dtNasc, :senha)";
+    $sql = "INSERT INTO usuario (nickUsuario, nmUsuario, emailUsuario, dtnascUsuario, senhaUsuario) VALUES (:nick, :nome, :email, :dtNasc, :senha)";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':nick', $nick);
     $stmt->bindParam(':nome', $nome);

@@ -8,7 +8,7 @@
     $pesquisa = '%' . $nome . '%';
     
     $PDO = db_connect();
-    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM Usuario 
+    $sql = "SELECT idUsuario, nickUsuario, nmUsuario, emailUsuario, dtnascUsuario FROM usuario 
     WHERE upper(nmUsuario) LIKE :pesquisa ORDER BY nmUsuario ASC";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':pesquisa', $pesquisa, PDO::PARAM_STR);

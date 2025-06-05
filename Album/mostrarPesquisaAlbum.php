@@ -8,7 +8,7 @@
     $pesquisa = '%' . $nome . '%';
     
     $PDO = db_connect();
-    $sql = "SELECT A.idAlbum, A.nmAlbum, A.dtAlbum, A.qtdfaixasAlbum, T.nmAutor FROM Album A INNER JOIN Autor T ON A.idAutor = T.idAutor
+    $sql = "SELECT A.idAlbum, A.nmAlbum, A.dtAlbum, A.qtdfaixasAlbum, T.nmAutor FROM album A INNER JOIN autor T ON A.idAutor = T.idAutor
     WHERE upper(nmAlbum) LIKE :pesquisa ORDER BY nmAlbum ASC";
     $stmt = $PDO->prepare($sql);
     $stmt->bindParam(':pesquisa', $pesquisa, PDO::PARAM_STR);
@@ -75,11 +75,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($Album = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+                    <?php while($album = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
                         <tr>
                             <td><?php echo $album['idAlbum']; ?></td>
                             <td><?php echo $album['nmAlbum']; ?></td>
-                            <td><?php echo $album['dtAlbum']; ?></td>
+                            <td><?php echo converteData($album['dtAlbum']); ?></td>
                             <td><?php echo $album['qtdfaixasAlbum']; ?></td>
                             <td><?php echo $album['nmAutor']; ?></td>
                             <td class="text-center">
